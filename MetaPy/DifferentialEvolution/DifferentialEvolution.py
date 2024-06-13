@@ -1,5 +1,5 @@
 class DifferentialEvolution:
-    def __init__(self,objectiveFunction:function,initializeIndividual:function):
+    def __init__(self,objectiveFunction,initializeIndividual):
         """
             Class for Differential Evolution Metaheuristic
             -- objectiveFunction : Function being optimized 

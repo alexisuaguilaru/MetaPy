@@ -4,6 +4,8 @@ class DifferentialEvolution:
             Class for Differential Evolution Metaheuristic
             -- objectiveFunction : Function being optimized 
             -- initializeIndividual : Function to create individuals
+
+            Based on DE/rand/1/bin
         """
         self.objectiveFunction = objectiveFunction
         self.initializeIndividual = initializeIndividual
@@ -15,6 +17,8 @@ class DifferentialEvolution:
             -- populationSize : Parameter NP. Size of solutions population
             -- scalingFactor : Parameter F. Scaling factor for difference vector 
             -- crossoverRate : Parameter Cr. Crossover rate for crossover operation
+
+            Return the best optimal solution, because of implementation will be the minimum
         """
         self.populationSize = populationSize
         self.scalingFactor = scalingFactor
@@ -22,14 +26,13 @@ class DifferentialEvolution:
         self.diffevol_InitializePopulation()
         for iteration in range(iterations):
             self.diffevol_IterativeSearch(iteration)
-        return self.diffevol_OptimalSolution()
+        return self.diffevol_BestSolutionFound()
 
     def diffevol_InitializePopulation(self) -> None:
         """
             Method to initialize population and fitnessValuesPopulation attributes  
         """
-        populationSize = self.populationSize
-        self.population = [self.initializeIndividual() for _ in range(populationSize)]
+        self.population = [self.initializeIndividual() for _ in range(self.populationSize)]
         self.fitnessValuesPopulation = [self.objectiveFunction(*individual) for individual in self.population]
 
     def diffevol_IterativeSearch(self,iteration:int) -> None:
@@ -39,29 +42,41 @@ class DifferentialEvolution:
         """
         populationSize = self.populationSize
         for indexIndividual in range(populationSize):
-            mutantIndividual = self.diffevol_MutationOperation(indexIndividual)
-            crossoverIndividual = self.diffevol_CrossoverOperation(indexIndividual,mutantIndividual)
+            mutatedIndividual = self.diffevol_MutationOperation(indexIndividual)
+            crossoverIndividual = self.diffevol_CrossoverOperation(indexIndividual,mutatedIndividual)
             if (fitnessValue:=self.objectiveFunction(*crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual
                 self.fitnessValuesPopulation[indexIndividual] = fitnessValue
 
-    def diffevol_MutationOperation(self,indexIndividual:int):
+    def diffevol_MutationOperation(self):
         """
-            Method to apply Differential Evolution Mutation Operation to an individual
-            -- indexIndividual : Individual's index to be mutated
+            Method to apply Differential Evolution Mutation Operation to a random individual
         """
-        pass
+        from random import sample
+        randomIndividual_1 , randomIndividual_2 , randomIndividual_3 = sample(self.population,k=3)
+        return  randomIndividual_1 + self.scalingFactor*(randomIndividual_2 - randomIndividual_3)
 
-    def diffevol_CrossoverOperation(self,indexIndividual:int,mutantIndividual):
+    def diffevol_CrossoverOperation(self,indexIndividual:int,mutatedIndividual):
         """
             Method to apply Differential Evolution Crossover Operation
             -- indexIndividual : Individual's index to be crossover
             -- mutantIndividual : Individual to be crossover
         """
-        pass
+        from random import random
+        from copy import deepcopy
+        individual = self.population[indexIndividual]
+        crossoverIndividual = deepcopy(individual)
+        for index , componentMutatedIndividual in enumerate(mutatedIndividual):
+            if random() <= self.crossoverRate:
+                crossoverIndividual[index] = componentMutatedIndividual
+        return crossoverIndividual
     
-    def diffevol_OptimalSolution(self):
+    def diffevol_BestOptimalFound(self):
         """
-            Method to return the optimal solution found
+            Method to return the best optimal found
         """
-        pass
+        bestIndexIndividual = 0
+        for indexIndividual in range(1,self.populationSize):
+            if self.fitnessValuesPopulation[indexIndividual] < self.fitnessValuesPopulation[indexIndividual]:
+                bestIndexIndividual = indexIndividual
+        return self.population[bestIndexIndividual]

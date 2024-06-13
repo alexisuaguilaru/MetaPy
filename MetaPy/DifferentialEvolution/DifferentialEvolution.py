@@ -26,7 +26,7 @@ class DifferentialEvolution:
         self.diffevol_InitializePopulation()
         for iteration in range(iterations):
             self.diffevol_IterativeSearch(iteration)
-        return self.diffevol_BestSolutionFound()
+        return self.diffevol_BestOptimalFound()
 
     def diffevol_InitializePopulation(self) -> None:
         """

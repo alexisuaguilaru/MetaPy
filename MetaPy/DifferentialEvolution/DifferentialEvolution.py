@@ -1,5 +1,5 @@
 class DifferentialEvolution:
-    def __init__(self,objectiveFunction:function,initializeIndividual:function):
+    def __init__(self,objectiveFunction,initializeIndividual):
         """
             Class for Differential Evolution Metaheuristic
             -- objectiveFunction : Function being optimized 
@@ -42,7 +42,7 @@ class DifferentialEvolution:
         """
         populationSize = self.populationSize
         for indexIndividual in range(populationSize):
-            mutatedIndividual = self.diffevol_MutationOperation(indexIndividual)
+            mutatedIndividual = self.diffevol_MutationOperation()
             crossoverIndividual = self.diffevol_CrossoverOperation(indexIndividual,mutatedIndividual)
             if (fitnessValue:=self.objectiveFunction(*crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual

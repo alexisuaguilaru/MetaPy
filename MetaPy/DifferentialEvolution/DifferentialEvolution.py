@@ -22,35 +22,45 @@ class DifferentialEvolution:
         self.diffevol_InitializePopulation()
         for iteration in range(iterations):
             self.diffevol_IterativeSearch(iteration)
-        return self.diffevol_OptimalSolution(populationSize)
+        return self.diffevol_OptimalSolution()
 
-    def diffevol_InitializePopulation(self):
+    def diffevol_InitializePopulation(self) -> None:
+        """
+            Method to initialize population and fitnessValuesPopulation attributes  
+        """
         populationSize = self.populationSize
         self.population = [self.initializeIndividual() for _ in range(populationSize)]
         self.fitnessValuesPopulation = [self.objectiveFunction(*individual) for individual in self.population]
 
-    def diffevol_IterativeSearch(self,iteration:int):
+    def diffevol_IterativeSearch(self,iteration:int) -> None:
+        """
+            Method to search optimal solutions
+            -- iteration : Number of iteration
+        """
         populationSize = self.populationSize
         for indexIndividual in range(populationSize):
-            mutantIndividual = self.diffevol_MutantOperation(indexIndividual)
+            mutantIndividual = self.diffevol_MutationOperation(indexIndividual)
             crossoverIndividual = self.diffevol_CrossoverOperation(indexIndividual,mutantIndividual)
             if (fitnessValue:=self.objectiveFunction(*crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual
                 self.fitnessValuesPopulation[indexIndividual] = fitnessValue
 
-    def diffevol_MutantOperation(self,indexIndividual:int):
+    def diffevol_MutationOperation(self,indexIndividual:int):
         """
-            Method to apply Differential Mutant Operation to an individual
+            Method to apply Differential Evolution Mutation Operation to an individual
+            -- indexIndividual : Individual's index to be mutated
         """
         pass
 
     def diffevol_CrossoverOperation(self,indexIndividual:int,mutantIndividual):
         """
-            Method to apply Differential Crossover Operation 
+            Method to apply Differential Evolution Crossover Operation
+            -- indexIndividual : Individual's index to be crossover
+            -- mutantIndividual : Individual to be crossover
         """
         pass
     
-    def diffevol_OptimalSolution(self,populationSize:int):
+    def diffevol_OptimalSolution(self):
         """
             Method to return the optimal solution found
         """

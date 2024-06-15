@@ -37,7 +37,7 @@ class DifferentialEvolution:
 
     def diffevol_IterativeSearch(self,iteration:int) -> None:
         """
-            Method to search optimal solutions
+            Method to search optimal solutions iteratively 
             -- iteration : Number of iteration
         """
         populationSize = self.populationSize

@@ -35,8 +35,9 @@ class DifferentialEvolution__Plotting(DifferentialEvolution):
         RowsCanvas , ResidualPlots = divmod(AmountPlots,3)
         if ResidualPlots>0:
             RowsCanvas += 1
-        fig , axs = plt.subplots(RowsCanvas,3)
-        for ax , snapshot in zip(axs,self.SnapshotsSaved):
-            iteration , population = snapshot
-            ax.scatter(population)
-            ax.set_tittle(f'Iteration : {iteration}') 
+        Fig , Axs = plt.subplots(RowsCanvas,3)
+        Axs = Axs.flat
+        for AxPosition , Snapshot in zip(range(3*RowsCanvas),self.SnapshotsSaved):
+            Iteration , Population = Snapshot
+            Axs[AxPosition].scatter(Population)
+            Axs[AxPosition].set_tittle(f'Iteration : {Iteration}') 

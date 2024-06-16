@@ -39,5 +39,6 @@ class DifferentialEvolution__Plotting(DifferentialEvolution):
         Axs = Axs.flat
         for AxPosition , Snapshot in zip(range(3*RowsCanvas),self.SnapshotsSaved):
             Iteration , Population = Snapshot
-            Axs[AxPosition].scatter(Population)
-            Axs[AxPosition].set_tittle(f'Iteration : {Iteration}') 
+            X , Y = [ind[0] for ind in Population] , [ind[1] for ind in Population]
+            Axs[AxPosition].scatter(X,Y)
+            Axs[AxPosition].set_title(f'Iteration : {Iteration}') 

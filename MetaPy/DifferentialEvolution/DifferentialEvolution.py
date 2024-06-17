@@ -18,15 +18,16 @@ class DifferentialEvolution:
             -- scalingFactor : Parameter F. Scaling factor for difference vector 
             -- crossoverRate : Parameter Cr. Crossover rate for crossover operation
 
-            Return the best optimal solution, because of implementation will be the minimum
+            Return the best optimal solution, because of implementation will be the minimum, and snapshots of the population at each iteration
         """
         self.populationSize = populationSize
         self.scalingFactor = scalingFactor
         self.crossoverRate = crossoverRate
+        self.SnapshotsSaved = []
         self.diffevol_InitializePopulation()
         for iteration in range(iterations):
             self.diffevol_IterativeSearch(iteration)
-        return self.diffevol_BestOptimalFound()
+        return self.diffevol_BestOptimalFound() , self.SnapshotsSaved
 
     def diffevol_InitializePopulation(self) -> None:
         """
@@ -48,6 +49,7 @@ class DifferentialEvolution:
             if (fitnessValue:=self.objectiveFunction(crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual
                 self.fitnessValuesPopulation[indexIndividual] = fitnessValue
+        self.diffevol_SnapshotPopulation(iteration)
 
     def diffevol_MutationOperation(self):
         """
@@ -72,7 +74,15 @@ class DifferentialEvolution:
             if random() <= self.crossoverRate:
                 crossoverIndividual[index] = componentMutatedIndividual
         return crossoverIndividual
-    
+
+    def diffevol_SnapshotPopulation(self,iteration:int):
+        """
+            Method to save a snapshot of the population at iteration-st
+            -- iteration : Number of iteration 
+        """
+        from copy import deepcopy
+        self.SnapshotsSaved.append((iteration,deepcopy(self.population)))
+
     def diffevol_BestOptimalFound(self):
         """
             Method to return the best optimal found

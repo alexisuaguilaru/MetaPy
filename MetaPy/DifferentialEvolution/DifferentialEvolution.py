@@ -32,8 +32,9 @@ class DifferentialEvolution:
         """
             Method to initialize population and fitnessValuesPopulation attributes  
         """
-        self.population = [self.initializeIndividual() for _ in range(self.populationSize)]
-        self.fitnessValuesPopulation = [self.objectiveFunction(*individual) for individual in self.population]
+        import numpy as np
+        self.population = np.array([self.initializeIndividual() for _ in range(self.populationSize)])
+        self.fitnessValuesPopulation = np.array([self.objectiveFunction(individual) for individual in self.population])
 
     def diffevol_IterativeSearch(self,iteration:int) -> None:
         """
@@ -44,7 +45,7 @@ class DifferentialEvolution:
         for indexIndividual in range(populationSize):
             mutatedIndividual = self.diffevol_MutationOperation()
             crossoverIndividual = self.diffevol_CrossoverOperation(indexIndividual,mutatedIndividual)
-            if (fitnessValue:=self.objectiveFunction(*crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
+            if (fitnessValue:=self.objectiveFunction(crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual
                 self.fitnessValuesPopulation[indexIndividual] = fitnessValue
 
@@ -53,7 +54,8 @@ class DifferentialEvolution:
             Method to apply Differential Evolution Mutation Operation to a random individual
         """
         from random import sample
-        randomIndividual_1 , randomIndividual_2 , randomIndividual_3 = sample(self.population,k=3)
+        randomIndex_1 , randomIndex_2 , randomIndex_3 = sample(range(self.populationSize),k=3)
+        randomIndividual_1 , randomIndividual_2 , randomIndividual_3 = self.population[randomIndex_1] , self.population[randomIndex_2] , self.population[randomIndex_3]
         return  randomIndividual_1 + self.scalingFactor*(randomIndividual_2 - randomIndividual_3)
 
     def diffevol_CrossoverOperation(self,indexIndividual:int,mutatedIndividual):

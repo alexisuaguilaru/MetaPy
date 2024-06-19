@@ -19,7 +19,7 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         """
         import numpy as np
         super().diffevol_InitializePopulation()
-        self.populationClusters = self.clusteringAlgorithm.fit(self.population)
+        self.populationClusters = self.clusteringAlgorithm.fit_predict(self.population)
 
     def diffevol_SnapshotPopulation(self, iteration: int):
         """

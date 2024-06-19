@@ -20,8 +20,9 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             Method to initialize population, fitnessValuesPopulation and  attributes  
         """
         import numpy as np
+        from copy import deepcopy
         super().diffevol_InitializePopulation()
-        returnClustering = self.clusteringAlgorithm(self.population,self.clusteringAlgorithm_kw)
+        returnClustering = self.clusteringAlgorithm(deepcopy(self.population),**self.clusteringAlgorithm_kw)
         if type(returnClustering) == tuple:
             self.populationClusters = returnClustering[1]
         else:

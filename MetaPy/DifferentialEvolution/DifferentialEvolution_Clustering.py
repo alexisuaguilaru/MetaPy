@@ -27,17 +27,13 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         self.clusteringAlgorithm_kw = clusteringAlgorithm_kw
         return super().__call__(iterations, populationSize, scalingFactor, crossoverRate)
 
-    def diffevol_InitializePopulation(self) -> None:
-        """
-            Method to initialize population, fitnessValuesPopulation and  attributes  
-        """
-        import numpy as np
-        super().diffevol_InitializePopulation()
+    def diffevol_IterativeSearch(self, iteration: int) -> None:
         returnClustering = self.clusteringAlgorithm(self.population,**self.clusteringAlgorithm_kw)
         if type(returnClustering) == tuple:
             self.populationClusters = returnClustering[1]
         else:
             self.populationClusters = returnClustering
+        return super().diffevol_IterativeSearch(iteration) 
 
     def diffevol_SnapshotPopulation(self, iteration: int):
         """

@@ -41,4 +41,4 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             -- iteration : Number of iteration 
         """
         from copy import deepcopy
-        self.SnapshotsSaved.append((iteration,deepcopy(self.population),deepcopy(self.populationClusters)))
+        self.SnapshotsSaved.append((iteration,deepcopy(self.population),deepcopy(self.populationClusters),self.optimalValue))

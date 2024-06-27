@@ -24,10 +24,11 @@ class DifferentialEvolution:
         self.scalingFactor = scalingFactor
         self.crossoverRate = crossoverRate
         self.SnapshotsSaved = []
+        self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()
         self.diffevol_InitializePopulation()
         for iteration in range(iterations):
             self.diffevol_IterativeSearch(iteration)
-        return self.diffevol_BestOptimalFound() , self.SnapshotsSaved
+        return self.optimalIndividual , self.SnapshotsSaved
 
     def diffevol_InitializePopulation(self) -> None:
         """
@@ -49,6 +50,9 @@ class DifferentialEvolution:
             if (fitnessValue:=self.objectiveFunction(crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual
                 self.fitnessValuesPopulation[indexIndividual] = fitnessValue
+                if self.fitnessValuesPopulation[indexIndividual] < self.optimalValue:
+                    self.optimalValue = self.fitnessValuesPopulation[indexIndividual]
+                    self.optimalIndividual = self.population[indexIndividual]
         self.diffevol_SnapshotPopulation(iteration)
 
     def diffevol_MutationOperation(self):
@@ -82,14 +86,14 @@ class DifferentialEvolution:
             -- iteration : Number of iteration 
         """
         from copy import deepcopy
-        self.SnapshotsSaved.append((iteration,deepcopy(self.population)))
+        self.SnapshotsSaved.append((iteration,deepcopy(self.population),self.optimalValue))
 
     def diffevol_BestOptimalFound(self):
         """
-            Method to return the best optimal found
+            Method to return the best optimal found's individual and function value
         """
         bestIndexIndividual = 0
         for indexIndividual in range(1,self.populationSize):
             if self.fitnessValuesPopulation[indexIndividual] < self.fitnessValuesPopulation[indexIndividual]:
                 bestIndexIndividual = indexIndividual
-        return self.population[bestIndexIndividual]
+        return self.population[bestIndexIndividual] , self.fitnessValuesPopulation[indexIndividual]

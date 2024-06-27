@@ -17,14 +17,14 @@ def PlottingSnapshots(snapshots,intervals: int,SubPlot_kw: dict={'autoscale_on':
     Axs = Axs.flat
     if len(snapshots[0])==2:
         for AxPosition , Snapshot in zip(range(3*RowsCanvas),snapshots[::intervals]):
-            Iteration , Population = Snapshot
+            Iteration , Population , _ = Snapshot
             X , Y = Population[:,0] , Population[:,1]
             Axs[AxPosition].scatter(X,Y,**Scatter_kw)
             Axs[AxPosition].set_title(f'Iteration : {Iteration}') 
     
     else:
         for AxPosition , Snapshot in zip(range(3*RowsCanvas),snapshots[::intervals]):
-            Iteration , Population , Clusters = Snapshot
+            Iteration , Population , Clusters , _ = Snapshot
             X , Y = Population[:,0] , Population[:,1]
             Axs[AxPosition].scatter(X,Y,c=Clusters,**Scatter_kw)
             Axs[AxPosition].set_title(f'Iteration : {Iteration}') 

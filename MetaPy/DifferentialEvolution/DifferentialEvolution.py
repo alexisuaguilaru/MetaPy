@@ -24,8 +24,8 @@ class DifferentialEvolution:
         self.scalingFactor = scalingFactor
         self.crossoverRate = crossoverRate
         self.SnapshotsSaved = []
-        self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()
         self.diffevol_InitializePopulation()
+        self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()
         for iteration in range(iterations):
             self.diffevol_IterativeSearch(iteration)
         return self.optimalIndividual , self.SnapshotsSaved

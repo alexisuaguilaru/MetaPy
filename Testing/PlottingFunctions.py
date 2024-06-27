@@ -15,7 +15,7 @@ def PlottingSnapshots(snapshots,intervals: int,SubPlot_kw: dict={'autoscale_on':
         RowsCanvas += 1
     Fig , Axs = plt.subplots(RowsCanvas,3,figsize=(12,4*RowsCanvas),subplot_kw=SubPlot_kw,**Fig_kw)
     Axs = Axs.flat
-    if len(snapshots[0])==2:
+    if len(snapshots[0]) == 3:
         for AxPosition , Snapshot in zip(range(3*RowsCanvas),snapshots[::intervals]):
             Iteration , Population , _ = Snapshot
             X , Y = Population[:,0] , Population[:,1]
@@ -28,3 +28,18 @@ def PlottingSnapshots(snapshots,intervals: int,SubPlot_kw: dict={'autoscale_on':
             X , Y = Population[:,0] , Population[:,1]
             Axs[AxPosition].scatter(X,Y,c=Clusters,**Scatter_kw)
             Axs[AxPosition].set_title(f'Iteration : {Iteration}') 
+
+def PlottingOptimalsFound(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict={}):
+    """
+        Function to plot optimal values at each iteration / convergence of solutions
+        -- snapshots : List of snapshots
+        -- fmt : Formatting of marker, linestyle and color 
+        -- YScale : Type of scale of Y axis 
+        -- Plot_kw : Dict with keywords to config the plot
+    """
+    import matplotlib.pyplot as plt
+    Fig , Ax = plt.subplots(figsize=(10,6))
+
+    X_Iterations , Y_OptimalValues = [Snapshot[0] for Snapshot in snapshots] , [Snapshot[-1] for Snapshot in snapshots]
+    Ax.set_yscale(YScale)
+    Ax.plot(X_Iterations,Y_OptimalValues,fmt,**Plot_kw)

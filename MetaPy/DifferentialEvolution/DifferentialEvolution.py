@@ -66,12 +66,13 @@ class DifferentialEvolution:
             -- indexIndividual : Individual's index to be crossover
             -- mutantIndividual : Individual to be crossover
         """
-        from random import random
+        from random import random , randrange
         from copy import deepcopy
         individual = self.population[indexIndividual]
         crossoverIndividual = deepcopy(individual)
+        indexMutated = randrange(0,len(crossoverIndividual))
         for index , componentMutatedIndividual in enumerate(mutatedIndividual):
-            if random() <= self.crossoverRate:
+            if (random() <= self.crossoverRate) or (index == indexMutated):
                 crossoverIndividual[index] = componentMutatedIndividual
         return crossoverIndividual
 

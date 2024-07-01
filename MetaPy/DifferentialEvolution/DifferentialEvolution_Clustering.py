@@ -24,6 +24,7 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
 
             Return the best optimal solution, because of implementation will be the minimum, and snapshots of the population at each iteration
         """
+        self.halfIterations = iterations//2
         self.clusteringAlgorithm_kw = clusteringAlgorithm_kw
         return super().__call__(iterations, populationSize, scalingFactor, crossoverRate)
 
@@ -33,7 +34,10 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             self.populationClusters = returnClustering[1]
         else:
             self.populationClusters = returnClustering
-        return super().diffevol_IterativeSearch(iteration) 
+        if iteration < self.halfIterations:
+            super().diffevol_IterativeSearch(iteration) 
+        elif iteration == self.halfIterations:
+            self.diffevol_clust_InitializePopulationRepresentatives()
 
     def diffevol_SnapshotPopulation(self, iteration: int):
         """
@@ -42,3 +46,18 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         """
         from copy import deepcopy
         self.SnapshotsSaved.append((iteration,deepcopy(self.population),deepcopy(self.populationClusters),self.optimalValue))
+
+    def diffevol_clust_InitializePopulationRepresentatives(self):
+        """
+        """
+        from collections import defaultdict
+        tableClustersIndividuals = defaultdict()
+        for clusterBelongs , individual , fitnessValue in zip(self.populationClusters,self.population,self.fitnessValuesPopulation):
+            if clusterBelongs == -1:
+                continue
+            else:
+                if not tableClustersIndividuals[clusterBelongs]:
+                    tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
+                elif fitnessValue < tableClustersIndividuals[clusterBelongs][-1]:
+                    tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
+        

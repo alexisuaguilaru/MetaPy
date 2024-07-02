@@ -33,11 +33,10 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         if type(returnClustering) == tuple:
             self.populationClusters = returnClustering[1]
         else:
-            self.populationClusters = returnClustering
-        if iteration < self.halfIterations:
-            super().diffevol_IterativeSearch(iteration) 
-        elif iteration == self.halfIterations:
+            self.populationClusters = returnClustering 
+        if iteration == self.halfIterations:
             self.diffevol_clust_InitializePopulationRepresentatives()
+        super().diffevol_IterativeSearch(iteration)
 
     def diffevol_SnapshotPopulation(self, iteration: int):
         """
@@ -49,8 +48,10 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
 
     def diffevol_clust_InitializePopulationRepresentatives(self):
         """
+            Method to reinitialize the population with the representatives of each cluster
         """
         from collections import defaultdict
+        import numpy as np
         tableClustersIndividuals = defaultdict()
         for clusterBelongs , individual , fitnessValue in zip(self.populationClusters,self.population,self.fitnessValuesPopulation):
             if clusterBelongs == -1:
@@ -60,4 +61,12 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
                     tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
                 elif fitnessValue < tableClustersIndividuals[clusterBelongs][-1]:
                     tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
-        
+        populationClusters , population , fitnessValuesPopulation = [] , [] , []
+        for cluster , solution in tableClustersIndividuals.items():
+            individual , fitnessValue = solution
+            populationClusters.append(cluster)
+            population.append(individual)
+            fitnessValuesPopulation.append(fitnessValue)
+        self.populationClusters = np.array(populationClusters) 
+        self.population = np.array(population) 
+        self.fitnessValuesPopulation = np.array(fitnessValuesPopulation)

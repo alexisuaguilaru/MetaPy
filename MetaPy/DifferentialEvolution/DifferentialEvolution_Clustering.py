@@ -52,12 +52,12 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         """
         from collections import defaultdict
         import numpy as np
-        tableClustersIndividuals = defaultdict()
+        tableClustersIndividuals = defaultdict(int)
         for clusterBelongs , individual , fitnessValue in zip(self.populationClusters,self.population,self.fitnessValuesPopulation):
             if clusterBelongs == -1:
                 continue
             else:
-                if not tableClustersIndividuals[clusterBelongs]:
+                if tableClustersIndividuals[clusterBelongs] == 0:
                     tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
                 elif fitnessValue < tableClustersIndividuals[clusterBelongs][-1]:
                     tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
@@ -68,5 +68,6 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             population.append(individual)
             fitnessValuesPopulation.append(fitnessValue)
         self.populationClusters = np.array(populationClusters) 
-        self.population = np.array(population) 
+        self.population = np.array(population)
         self.fitnessValuesPopulation = np.array(fitnessValuesPopulation)
+        self.populationSize = len(population)

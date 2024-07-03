@@ -24,7 +24,6 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
 
             Return the best optimal solution, because of implementation will be the minimum, and snapshots of the population at each iteration
         """
-        self.halfIterations = iterations//2
         self.clusteringAlgorithm_kw = clusteringAlgorithm_kw
         return super().__call__(iterations, populationSize, scalingFactor, crossoverRate)
 
@@ -34,8 +33,6 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             self.populationClusters = returnClustering[1]
         else:
             self.populationClusters = returnClustering 
-        if iteration == self.halfIterations:
-            self.diffevol_clust_InitializePopulationRepresentatives()
         super().diffevol_IterativeSearch(iteration)
 
     def diffevol_SnapshotPopulation(self, iteration: int):

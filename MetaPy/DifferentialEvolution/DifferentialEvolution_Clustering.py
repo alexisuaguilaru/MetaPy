@@ -3,7 +3,7 @@ from DifferentialEvolution import DifferentialEvolution
 class DifferentialEvolution_Clustering(DifferentialEvolution):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
         """
-            Class for Differential Evolution Metaheuristic with Local Optimization 
+            Class for Differential Evolution Metaheuristic with Population Clustering 
             -- objectiveFunction : Function being optimized 
             -- initializeIndividual : Function to create individuals
             -- clusteringAlgorithm : Algorithm to execute clustering from Scikit Learn
@@ -32,8 +32,8 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         if type(returnClustering) == tuple:
             self.populationClusters = returnClustering[1]
         else:
-            self.populationClusters = returnClustering
-        return super().diffevol_IterativeSearch(iteration) 
+            self.populationClusters = returnClustering 
+        super().diffevol_IterativeSearch(iteration)
 
     def diffevol_SnapshotPopulation(self, iteration: int):
         """

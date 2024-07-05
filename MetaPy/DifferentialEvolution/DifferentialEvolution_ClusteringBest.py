@@ -19,6 +19,7 @@ class DifferentialEvolution_ClusteringBest(DifferentialEvolution_Clustering):
     def diffevol_IterativeSearch(self, iteration: int) -> None:
         if iteration == 63:
             self.diffevol_clust_InitializePopulationRepresentatives()
+            self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()
         super().diffevol_IterativeSearch(iteration)
     
     def diffevol_clust_InitializePopulationRepresentatives(self):

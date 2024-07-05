@@ -42,29 +42,3 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
         """
         from copy import deepcopy
         self.SnapshotsSaved.append((iteration,deepcopy(self.population),deepcopy(self.populationClusters),self.optimalValue))
-
-    def diffevol_clust_InitializePopulationRepresentatives(self):
-        """
-            Method to reinitialize the population with the representatives of each cluster
-        """
-        from collections import defaultdict
-        import numpy as np
-        tableClustersIndividuals = defaultdict(int)
-        for clusterBelongs , individual , fitnessValue in zip(self.populationClusters,self.population,self.fitnessValuesPopulation):
-            if clusterBelongs == -1:
-                continue
-            else:
-                if tableClustersIndividuals[clusterBelongs] == 0:
-                    tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
-                elif fitnessValue < tableClustersIndividuals[clusterBelongs][-1]:
-                    tableClustersIndividuals[clusterBelongs] = (individual,fitnessValue)
-        populationClusters , population , fitnessValuesPopulation = [] , [] , []
-        for cluster , solution in tableClustersIndividuals.items():
-            individual , fitnessValue = solution
-            populationClusters.append(cluster)
-            population.append(individual)
-            fitnessValuesPopulation.append(fitnessValue)
-        self.populationClusters = np.array(populationClusters) 
-        self.population = np.array(population)
-        self.fitnessValuesPopulation = np.array(fitnessValuesPopulation)
-        self.populationSize = len(population)

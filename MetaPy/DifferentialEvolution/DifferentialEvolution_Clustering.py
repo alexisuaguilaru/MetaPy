@@ -3,7 +3,7 @@ from DifferentialEvolution import DifferentialEvolution
 class DifferentialEvolution_Clustering(DifferentialEvolution):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
         """
-            Class for Differential Evolution Metaheuristic with Local Optimization 
+            Class for Differential Evolution Metaheuristic with Population Clustering 
             -- objectiveFunction : Function being optimized 
             -- initializeIndividual : Function to create individuals
             -- clusteringAlgorithm : Algorithm to execute clustering from Scikit Learn

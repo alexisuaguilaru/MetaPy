@@ -49,7 +49,7 @@ class DifferentialEvolution_ClusteringBest(DifferentialEvolution_Clustering):
                     clustersRepresentativeIndividuals[clusterBelongs] = (individual,fitnessValue)
         return clustersRepresentativeIndividuals
 
-    def diffevol_clust_UnpackClustersRepresentatives(clustersRepresentativeIndividuals) -> tuple:
+    def diffevol_clust_UnpackClustersRepresentatives(self,clustersRepresentativeIndividuals) -> tuple:
         """
             Method to transform representative individuals into lits of cluster labels, population and fitness values
             -- clustersRepresentativeIndividuals : Dict with cluster labels and individuals with their fitness values

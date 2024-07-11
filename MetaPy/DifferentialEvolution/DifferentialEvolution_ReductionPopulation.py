@@ -41,7 +41,30 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         """
             Method to reduce population size using k-means
         """
-        pass
+        from math import sqrt , ceil
+        from sklearn.cluster import k_means
+        numClusters = ceil(sqrt(self.populationSize))
+        populationLabels = k_means(self.population,numClusters)[1]
+        self.diffevol_redpop_ReinitializePopulation(populationLabels)
+        self.populationSize = numClusters 
+
+    def diffevol_redpop_ReinitializePopulation(self,populationLabels):
+        """
+            Method to reinitialize population with the best individuals and theirs fitness values
+        """
+        from collections import defaultdict
+        import numpy as np
+        populationIndividuals = defaultdict(int)
+        for labelCluster , individidual , individualFitnessValue in zip(populationLabels,self.population,self.fitnessValuesPopulation):
+            if populationIndividuals[labelCluster] == 0:
+                populationIndividuals[labelCluster] = (individidual,individualFitnessValue)
+            else:
+                if individualFitnessValue < populationIndividuals[labelCluster][1]:
+                    populationIndividuals[labelCluster] = (individidual,individualFitnessValue)
+        population , fitnessValuesPopulation = [] , []
+        [population.append(individidual),fitnessValuesPopulation.append(fitnessValue)  for individual,fitnessValue in populationIndividuals.values()]
+        self.population = np.array(population)
+        self.fitnessValuesPopulation = np.array(fitnessValuesPopulation)
 
     def diffevol_redpop_IncreasePopulation(self):
         """

@@ -71,4 +71,15 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
             Method to generate new solutions based on best solutions
             at each cluster
         """
+        from math import sqrt , ceil
+        from random import randint
+        numClusters = ceil(sqrt(self.populationSize))
+        numIncreasePopulation = randint(0,numClusters)*numClusters
+        newIndividuals = []
+        for _ in range(numIncreasePopulation):
+            individualGenerated = self.diffevol_redpop_ConvexCombination()
+            newIndividuals.append(individualGenerated)
+        self.populationSize += numIncreasePopulation
+
+    def diffevol_redpop_ConvexCombination(self):
         pass

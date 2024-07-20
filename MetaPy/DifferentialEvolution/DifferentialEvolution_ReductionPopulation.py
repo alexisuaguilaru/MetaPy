@@ -46,7 +46,7 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         numClusters = ceil(sqrt(self.populationSize))
         populationLabels = k_means(self.population,numClusters)[1]
         self.diffevol_redpop_ReinitializePopulation(populationLabels)
-        self.populationSize = numClusters 
+        self.populationSize = numClusters
 
     def diffevol_redpop_ReinitializePopulation(self,populationLabels):
         """
@@ -55,14 +55,14 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         from collections import defaultdict
         import numpy as np
         populationIndividuals = defaultdict(int)
-        for labelCluster , individidual , individualFitnessValue in zip(populationLabels,self.population,self.fitnessValuesPopulation):
+        for labelCluster , individual , individualFitnessValue in zip(populationLabels,self.population,self.fitnessValuesPopulation):
             if populationIndividuals[labelCluster] == 0:
-                populationIndividuals[labelCluster] = (individidual,individualFitnessValue)
+                populationIndividuals[labelCluster] = (individual,individualFitnessValue)
             else:
                 if individualFitnessValue < populationIndividuals[labelCluster][1]:
-                    populationIndividuals[labelCluster] = (individidual,individualFitnessValue)
+                    populationIndividuals[labelCluster] = (individual,individualFitnessValue)
         population , fitnessValuesPopulation = [] , []
-        [population.append(individidual),fitnessValuesPopulation.append(fitnessValue)  for individual,fitnessValue in populationIndividuals.values()]
+        [population.append(individual),fitnessValuesPopulation.append(fitnessValue)  for individual,fitnessValue in populationIndividuals.values()]
         self.population = np.array(population)
         self.fitnessValuesPopulation = np.array(fitnessValuesPopulation)
 
@@ -74,7 +74,7 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         from math import sqrt , ceil
         from random import randint
         import numpy as np
-        numClusters = ceil(sqrt(self.populationSize))
+        numClusters = self.populationSize
         numIncreasePopulation = randint(0,numClusters)*numClusters
         newIndividuals , newIndividualsFitnessValues = [] , []
         for _ in range(numIncreasePopulation):
@@ -86,4 +86,12 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         self.fitnessValuesPopulation = np.concatenate((self.fitnessValuesPopulation,newIndividualsFitnessValues))
 
     def diffevol_redpop_CreateNewIndividual(self):
-        pass
+        """
+            Method to generate an individual solution based 
+            on best solutions at each cluster
+        """
+        from random import randint
+        mutatedIndividual = self.diffevol_MutationOperation()
+        indexBaseIndividual = randint(0,self.populationSize-1)
+        crossoverIndividual = self.diffevol_CrossoverOperation(indexBaseIndividual,mutatedIndividual)
+        return crossoverIndividual

@@ -73,13 +73,17 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         """
         from math import sqrt , ceil
         from random import randint
+        import numpy as np
         numClusters = ceil(sqrt(self.populationSize))
         numIncreasePopulation = randint(0,numClusters)*numClusters
-        newIndividuals = []
+        newIndividuals , newIndividualsFitnessValues = [] , []
         for _ in range(numIncreasePopulation):
-            individualGenerated = self.diffevol_redpop_ConvexCombination()
+            individualGenerated = self.diffevol_redpop_CreateNewIndividual()
             newIndividuals.append(individualGenerated)
+            newIndividualsFitnessValues.append(self.objectiveFunction(individualGenerated))
         self.populationSize += numIncreasePopulation
+        self.population = np.concatenate((self.population,newIndividuals))
+        self.fitnessValuesPopulation = np.concatenate((self.fitnessValuesPopulation,newIndividualsFitnessValues))
 
-    def diffevol_redpop_ConvexCombination(self):
+    def diffevol_redpop_CreateNewIndividual(self):
         pass

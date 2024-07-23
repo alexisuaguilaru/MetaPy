@@ -81,10 +81,10 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
             individualGenerated = self.diffevol_redpop_CreateNewIndividual()
             newIndividuals.append(individualGenerated)
             newIndividualsFitnessValues.append(self.objectiveFunction(individualGenerated))
-        self.populationSize += numIncreasePopulation
+        self.populationSize = self.populationSize + numIncreasePopulation
         print(len(newIndividuals))
-        print(self.population.shape,(len(newIndividuals),len(newIndividuals[0])))
         if numIncreasePopulation > 0:
+            print(self.population.shape,(len(newIndividuals),len(newIndividuals[0])))
             self.population = np.concatenate((self.population,newIndividuals))
             self.fitnessValuesPopulation = np.concatenate((self.fitnessValuesPopulation,newIndividualsFitnessValues))
         self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()

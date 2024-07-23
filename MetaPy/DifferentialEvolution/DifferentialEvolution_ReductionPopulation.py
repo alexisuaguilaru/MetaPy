@@ -62,7 +62,7 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
                 if individualFitnessValue < populationIndividuals[labelCluster][1]:
                     populationIndividuals[labelCluster] = (individual,individualFitnessValue)
         population , fitnessValuesPopulation = [] , []
-        [population.append(individual),fitnessValuesPopulation.append(fitnessValue)  for individual,fitnessValue in populationIndividuals.values()]
+        [(population.append(individual),fitnessValuesPopulation.append(fitnessValue))  for individual,fitnessValue in populationIndividuals.values()]
         self.population = np.array(population)
         self.fitnessValuesPopulation = np.array(fitnessValuesPopulation)
 

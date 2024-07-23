@@ -84,6 +84,7 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         self.populationSize += numIncreasePopulation
         self.population = np.concatenate((self.population,newIndividuals))
         self.fitnessValuesPopulation = np.concatenate((self.fitnessValuesPopulation,newIndividualsFitnessValues))
+        self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()
 
     def diffevol_redpop_CreateNewIndividual(self):
         """

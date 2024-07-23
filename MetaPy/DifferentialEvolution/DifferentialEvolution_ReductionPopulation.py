@@ -29,7 +29,7 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         self.diffevol_InitializePopulation()
         self.optimalIndividual , self.optimalValue = self.diffevol_BestOptimalFound()
         iteration = 0
-        while self.population > 1:
+        while self.populationSize > 3:
             if iteration%10 == 0 and iteration != 0:
                 self.diffevol_redpop_ReductionPopulation()
                 self.diffevol_redpop_IncreasePopulation()

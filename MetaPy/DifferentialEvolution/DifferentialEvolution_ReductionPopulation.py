@@ -47,7 +47,7 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
         populationLabels = k_means(self.population,self.numberClusters)[1]
         self.diffevol_redpop_ReinitializePopulation(populationLabels)
 
-    def diffevol_redpop_ReinitializePopulation(self,populationLabels):
+    def diffevol_redpop_ReinitializePopulation(self, populationLabels):
         """
             Method to reinitialize population with the best individuals and theirs fitness values
         """
@@ -86,4 +86,6 @@ class DifferentialEvolution_ReductionPopulation(DifferentialEvolution):
             Method to generate an individual solution based 
             on best solutions at each cluster
         """
-        pass
+        import numpy as np
+        randomWeighVector = 20*np.random.rand(self.numberClusters,1) - 10
+        return self.population * randomWeighVector

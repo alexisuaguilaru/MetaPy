@@ -19,7 +19,7 @@ class GreyWolfOptimizer:
         self.GWO_InitializePopulation()
         self.GWO_solutionsAlphaBettaDelta()
         vector_a = np.full(len(self.population[0]),2,dtype=np.float64)
-        for iteration in range(iteration+1):
+        for iteration in range(iteration):
             vectorA = 
             vectorC =  
             self.GWO_decreaseVector_a(vector_a,iteration,iterations)
@@ -37,10 +37,10 @@ class GreyWolfOptimizer:
             Method to linearly decrease the vector a's entries 
         """
         import numpy as np
-        if iteration == iterations-1:
+        if iteration == iterations-2:
                 vector_a = np.full(len(self.population[0]),0,dtype=np.float64)
         else:
-            vector_a -= 2/iterations
+            vector_a = vector_a - 2/(iterations-1)
 
     def GWO_solutionsAlphaBettaDelta(self):
         """

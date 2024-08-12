@@ -1,6 +1,3 @@
-from typing import Any
-
-
 class GreyWolfOptimizer:
     def __init__(self,objectiveFunction,initializeIndividual):
         """
@@ -16,7 +13,7 @@ class GreyWolfOptimizer:
     def __call__(self, iterations:int ,populationSize:int):
         import numpy as np
         self.populationSize = populationSize
-        self.GWO_InitializePopulation()
+        self.GWO_initializePopulation()
         self.GWO_solutionsAlphaBettaDelta()
         vector_a = np.full(len(self.population[0]),2,dtype=np.float64)
         randNumGen = np.random.default_rng()
@@ -70,5 +67,3 @@ class GreyWolfOptimizer:
         """
         randomVector = randNumGen.random((len(self.population[0])))
         return 2*randomVector
-
-    

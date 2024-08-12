@@ -17,14 +17,14 @@ class GreyWolfOptimizer:
         import numpy as np
         self.populationSize = populationSize
         self.GWO_InitializePopulation()
-        self.GWO_
+        self.GWO_solutionsAlphaBettaDelta()
         vector_a = np.full(len(self.population[0]),2,dtype=np.float64)
         for iteration in range(iteration+1):
             vectorA = 
             vectorC =  
             self.GWO_decreaseVector_a(vector_a,iteration,iterations)
             
-    def GWO_InitializePopulation(self):
+    def GWO_initializePopulation(self):
         """
             Method to initialize population and fitnessValuesPopulation attributes  
         """
@@ -42,4 +42,16 @@ class GreyWolfOptimizer:
         else:
             vector_a -= 2/iterations
 
-    
+    def GWO_solutionsAlphaBettaDelta(self):
+        """
+            Method to initialize alpha (best), betta (second) and delta (third) solutions
+        """
+        import numpy as np
+        self.indexAlphaBettaDelta = np.array([0,0,0])
+        for indexSolution , fitnessValueSolution in enumerate(self.fitnessValuesPopulation):
+            if fitnessValueSolution >= self.fitnessValuesPopulation(self.indexAlphaBettaDelta[0]):
+                self.indexAlphaBettaDelta[0] , self.indexAlphaBettaDelta[1] , self.indexAlphaBettaDelta[2] = indexSolution , self.indexAlphaBettaDelta[0] , self.indexAlphaBettaDelta[1]
+            elif fitnessValueSolution >= self.fitnessValuesPopulation(self.indexAlphaBettaDelta[1]):
+                self.indexAlphaBettaDelta[1] , self.indexAlphaBettaDelta[2] = indexSolution , self.indexAlphaBettaDelta[1]
+            elif fitnessValueSolution > self.fitnessValuesPopulation(self.indexAlphaBettaDelta[2]):
+                self.indexAlphaBettaDelta[2] = indexSolution

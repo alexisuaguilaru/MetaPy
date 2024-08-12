@@ -21,8 +21,8 @@ class GreyWolfOptimizer:
         vector_a = np.full(len(self.population[0]),2,dtype=np.float64)
         randNumGen = np.random.default_rng()
         for iteration in range(iteration):
-            vectorA = self.GWO_updateVecorA(randNumGen,vector_a)
-            vectorC = self.GWO_updateVecorC(randNumGen)
+            vectorA = self.GWO_updateVectorA(randNumGen,vector_a)
+            vectorC = self.GWO_updateVectorC(randNumGen)
             self.GWO_decreaseVector_a(vector_a,iteration,iterations)
             
     def GWO_initializePopulation(self):
@@ -57,14 +57,14 @@ class GreyWolfOptimizer:
             elif fitnessValueSolution > self.fitnessValuesPopulation(self.indexAlphaBettaDelta[2]):
                 self.indexAlphaBettaDelta[2] = indexSolution
     
-    def GWO_updateVecorA(self,randNumGen,vector_a):
+    def GWO_updateVectorA(self,randNumGen,vector_a):
         """
             Method to update vector A
         """
         randomVector = randNumGen.random((len(self.population[0])))
         return 2*vector_a*randomVector - vector_a
 
-    def GWO_updateVecorC(self,randNumGen):
+    def GWO_updateVectorC(self,randNumGen):
         """
             Method to update vector C
         """

@@ -4,7 +4,7 @@ class DifferentialEvolution_ClusteringBest(DifferentialEvolution_ClusteringOpera
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
         """
         Class for Differential Evolution Metaheuristic with Local Optimization
-        based on Clustering and Best Solutions
+        based on Clustering and Best Solutions of all clusters
             -- objectiveFunction : Function being optimized 
             -- initializeIndividual : Function to create individuals
             -- clusteringAlgorithm : Algorithm to execute clustering from Scikit Learn

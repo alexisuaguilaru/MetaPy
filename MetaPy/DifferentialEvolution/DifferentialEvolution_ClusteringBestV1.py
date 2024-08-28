@@ -1,10 +1,10 @@
 from DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
 
-class DifferentialEvolution_ClusteringBest(DifferentialEvolution_ClusteringOperation):
+class DifferentialEvolution_ClusteringBestV1(DifferentialEvolution_ClusteringOperation):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
         """
         Class for Differential Evolution Metaheuristic with Local Optimization
-        based on Clustering and Best Solutions
+        based on Clustering and Best Solutions of no noisy clusters
             -- objectiveFunction : Function being optimized 
             -- initializeIndividual : Function to create individuals
             -- clusteringAlgorithm : Algorithm to execute clustering from Scikit Learn

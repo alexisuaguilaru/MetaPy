@@ -1,6 +1,6 @@
 from DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
 
-class DifferentialEvolution_ClusteringBest(DifferentialEvolution_ClusteringOperation):
+class DifferentialEvolution_ClusteringBestV2(DifferentialEvolution_ClusteringOperation):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
         """
         Class for Differential Evolution Metaheuristic with Local Optimization

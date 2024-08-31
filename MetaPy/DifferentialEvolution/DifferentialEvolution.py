@@ -94,6 +94,6 @@ class DifferentialEvolution:
         """
         bestIndexIndividual = 0
         for indexIndividual in range(1,self.populationSize):
-            if self.fitnessValuesPopulation[indexIndividual] < self.fitnessValuesPopulation[indexIndividual]:
+            if self.fitnessValuesPopulation[indexIndividual] < self.fitnessValuesPopulation[bestIndexIndividual]:
                 bestIndexIndividual = indexIndividual
         return self.population[bestIndexIndividual] , self.fitnessValuesPopulation[bestIndexIndividual]

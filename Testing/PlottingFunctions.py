@@ -39,7 +39,16 @@ def PlottingOptimalsFound(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict
     """
     import matplotlib.pyplot as plt
     Fig , Ax = plt.subplots(figsize=(10,6))
-
     X_Iterations , Y_OptimalValues = [Snapshot[0] for Snapshot in snapshots] , [Snapshot[-1] for Snapshot in snapshots]
     Ax.set_yscale(YScale)
     Ax.plot(X_Iterations,Y_OptimalValues,fmt,**Plot_kw)
+
+def MultiPlottingOptimalsFound(parameterList,parameterName,optimizer,kwargsOptimizer,ftmList,subplot_kw:dict={}):
+    import matplotlib.pyplot as plt
+    Fig , Ax = plt.subplots(subplot_kw=subplot_kw,figsize=(10,6))
+    for parameterValue,fmt in zip(parameterList,ftmList):
+        kwargsOptimizer[parameterName] = parameterValue
+        _ , snapshots = optimizer(**kwargsOptimizer)
+        X_Iterations , Y_OptimalValues = [Snapshot[0] for Snapshot in snapshots] , [Snapshot[-1] for Snapshot in snapshots]
+        Ax.plot(X_Iterations,Y_OptimalValues,fmt,label=f'{parameterName}:{parameterValue}')
+    Ax.legend()

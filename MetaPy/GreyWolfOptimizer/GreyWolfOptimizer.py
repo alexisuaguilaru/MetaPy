@@ -36,7 +36,7 @@ class GreyWolfOptimizer:
         """
             Method to initialize alpha (best), betta (second) and delta (third) solutions
         """
-        import numpy as np
+        from copy import deepcopy
         indexAlpha , indexBetta , indexDelta = [0,0,0]
         for indexSolution , fitnessValueSolution in enumerate(self.fitnessValuesPopulation):
             if fitnessValueSolution >= self.fitnessValuesPopulation[indexAlpha]:
@@ -45,7 +45,7 @@ class GreyWolfOptimizer:
                 indexBetta , indexDelta = indexSolution , indexBetta
             elif fitnessValueSolution > self.fitnessValuesPopulation[indexDelta]:
                 indexDelta = indexSolution
-        return self.population[indexAlpha] , self.population[indexBetta] , self.population[indexDelta]
+        return deepcopy(self.population[indexAlpha]) , deepcopy(self.population[indexBetta]) , deepcopy(self.population[indexDelta])
     
     def GWO_updateVectorA(self,randNumGen,vector_a):
         """
@@ -62,7 +62,39 @@ class GreyWolfOptimizer:
         self.vectorC = 2*randomVector
 
     def GWO_updateIndexSolution(self,indexSolution,solutionAlpha,solutionBetta,solutionDelta):
-        pass
+        """
+            Method to update a solution based on alpha, betta and delta solutions
+            -- indexSolution : Solution's index being updated
+            -- solutionAlpha : Solution alpha
+            -- solutionBetta : Solution betta
+            -- solutionDelta : Solution delta
+        """
+        solutionBase = self.population[indexSolution]
+        distanceToAlpha = self.GWO_distanceBetweenSolutions(solutionBase,solutionAlpha) 
+        distanceToBetta = self.GWO_distanceBetweenSolutions(solutionBase,solutionBetta) 
+        distanceToDelta = self.GWO_distanceBetweenSolutions(solutionBase,solutionDelta)
+        vectorSolutionAlpha = self.GWO_vectorApproximatedSolution(solutionAlpha,distanceToAlpha)
+        vectorSolutionBetta = self.GWO_vectorApproximatedSolution(solutionBetta,distanceToBetta)
+        vectorSolutionDelta = self.GWO_vectorApproximatedSolution(solutionDelta,distanceToDelta)
+        self.population[indexSolution] = (vectorSolutionAlpha + vectorSolutionBetta + vectorSolutionDelta)/3
+        self.fitnessValuesPopulation[indexSolution] = self.objectiveFunction(self.population[indexSolution])
+
+    def GWO_distanceBetweenSolutions(self,solutionBase,solutionApproximated):
+        """
+            Method to calculated distance between a solution and alpha/betta/delta solution
+            -- solutionBase : Solution being updated
+            -- solutionApproximated : Alpha/Betta/Delta solution
+        """
+        import numpy as np
+        return np.linalg.norm(self.vectorC * solutionApproximated - solutionBase)
+    
+    def GWO_vectorApproximatedSolution(self,solutionApproximated,distanceToSolutionApproximated):
+        """
+            Method to determine a new approximated solution given a approximated solution
+            -- solutionApproximated : Alpha/Betta/Delta solution
+            -- distanceToSolutionApproximated : Distance given by distanceBetweenSolutions 
+        """
+        return solutionApproximated - self.vectorA * distanceToSolutionApproximated
         
     def GWO_decreaseVector_a(self,vector_a,iteration,iterations):
         """

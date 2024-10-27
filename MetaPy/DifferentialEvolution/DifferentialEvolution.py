@@ -1,3 +1,7 @@
+import numpy as np
+from random import sample , random , randrange
+from copy import deepcopy
+
 class DifferentialEvolution:
     def __init__(self,objectiveFunction,initializeIndividual):
         """
@@ -34,7 +38,6 @@ class DifferentialEvolution:
         """
             Method to initialize population and fitnessValuesPopulation attributes  
         """
-        import numpy as np
         self.population = np.array([self.initializeIndividual() for _ in range(self.populationSize)])
         self.fitnessValuesPopulation = np.array([self.objectiveFunction(individual) for individual in self.population])
 
@@ -59,7 +62,6 @@ class DifferentialEvolution:
         """
             Method to apply Differential Evolution Mutation Operation to a random individual
         """
-        from random import sample
         randomIndex_1 , randomIndex_2 , randomIndex_3 = sample(range(self.populationSize),k=3)
         randomIndividual_1 , randomIndividual_2 , randomIndividual_3 = self.population[randomIndex_1] , self.population[randomIndex_2] , self.population[randomIndex_3]
         return  randomIndividual_1 + self.scalingFactor*(randomIndividual_2 - randomIndividual_3)
@@ -70,8 +72,6 @@ class DifferentialEvolution:
             -- indexIndividual : Individual's index to be crossover
             -- mutantIndividual : Individual to be crossover
         """
-        from random import random , randrange
-        from copy import deepcopy
         individual = self.population[indexIndividual]
         crossoverIndividual = deepcopy(individual)
         indexMutated = randrange(0,len(crossoverIndividual))
@@ -85,7 +85,6 @@ class DifferentialEvolution:
             Method to save a snapshot of the population at iteration-st
             -- iteration : Number of iteration 
         """
-        from copy import deepcopy
         self.SnapshotsSaved.append((iteration,deepcopy(self.population),self.optimalValue))
 
     def diffevol_BestOptimalFound(self):

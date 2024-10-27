@@ -1,6 +1,6 @@
 import numpy as np
 
-from DifferentialEvolution_Clustering import DifferentialEvolution_Clustering
+from .DifferentialEvolution_Clustering import DifferentialEvolution_Clustering
 
 class DifferentialEvolution_ClusteringOperation(DifferentialEvolution_Clustering):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):

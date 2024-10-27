@@ -1,7 +1,7 @@
 from collections import defaultdict
 import numpy as np
 
-from DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
+from .DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
 
 class DifferentialEvolution_ClusteringAvg(DifferentialEvolution_ClusteringOperation):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):

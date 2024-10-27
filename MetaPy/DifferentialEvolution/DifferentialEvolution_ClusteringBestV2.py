@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
+from .DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
 
 class DifferentialEvolution_ClusteringBestV2(DifferentialEvolution_ClusteringOperation):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):

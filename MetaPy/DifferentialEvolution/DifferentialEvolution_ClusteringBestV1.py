@@ -1,4 +1,6 @@
-from DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
+from collections import defaultdict
+
+from .DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
 
 class DifferentialEvolution_ClusteringBestV1(DifferentialEvolution_ClusteringOperation):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
@@ -17,7 +19,6 @@ class DifferentialEvolution_ClusteringBestV1(DifferentialEvolution_ClusteringOpe
         """
             Method to get clusters representatives on based of best optimal solutions of each cluster  
         """
-        from collections import defaultdict
         clustersRepresentativeIndividuals = defaultdict(int)
         for clusterBelongs , individual , fitnessValue in zip(self.populationClusters,self.population,self.fitnessValuesPopulation):
             if clusterBelongs == -1:

@@ -1,4 +1,6 @@
-from DifferentialEvolution import DifferentialEvolution
+from copy import deepcopy
+
+from .DifferentialEvolution import DifferentialEvolution
 
 class DifferentialEvolution_Clustering(DifferentialEvolution):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
@@ -40,5 +42,4 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             Method to save a snapshot of the population at iteration-st
             -- iteration : Number of iteration 
         """
-        from copy import deepcopy
         self.SnapshotsSaved.append((iteration,deepcopy(self.population),deepcopy(self.populationClusters),self.optimalValue))

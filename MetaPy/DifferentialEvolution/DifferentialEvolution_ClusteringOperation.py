@@ -1,4 +1,6 @@
-from DifferentialEvolution_Clustering import DifferentialEvolution_Clustering
+import numpy as np
+
+from .DifferentialEvolution_Clustering import DifferentialEvolution_Clustering
 
 class DifferentialEvolution_ClusteringOperation(DifferentialEvolution_Clustering):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
@@ -38,7 +40,6 @@ class DifferentialEvolution_ClusteringOperation(DifferentialEvolution_Clustering
         """
             Method to reinitialize the population with the representatives of each cluster
         """
-        import numpy as np
         clustersRepresentativeIndividuals = self.diffevol_clust_ClustersRepresentatives()
         populationClusters , population , fitnessValuesPopulation = self.diffevol_clust_UnpackClustersRepresentatives(clustersRepresentativeIndividuals)
         self.populationClusters = np.array(populationClusters) 

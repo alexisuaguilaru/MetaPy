@@ -1,4 +1,7 @@
-from DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
+from collections import defaultdict
+import numpy as np
+
+from .DifferentialEvolution_ClusteringOperation import DifferentialEvolution_ClusteringOperation
 
 class DifferentialEvolution_ClusteringAvg(DifferentialEvolution_ClusteringOperation):
     def __init__(self, objectiveFunction, initializeIndividual, clusteringAlgorithm):
@@ -17,8 +20,6 @@ class DifferentialEvolution_ClusteringAvg(DifferentialEvolution_ClusteringOperat
         """
             Method to get clusters representatives on based of average solution of each cluster  
         """
-        from collections import defaultdict
-        import numpy as np
         clustersRepresentativeIndividuals = defaultdict(list)
         for clusterBelongs , individual in zip(self.populationClusters,self.population):
             if clusterBelongs == -1:

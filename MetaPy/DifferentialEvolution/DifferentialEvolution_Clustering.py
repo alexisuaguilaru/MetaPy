@@ -42,4 +42,4 @@ class DifferentialEvolution_Clustering(DifferentialEvolution):
             Method to save a snapshot of the population at iteration-st
             -- iteration : Number of iteration 
         """
-        self.SnapshotsSaved.append((iteration,deepcopy(self.population),deepcopy(self.populationClusters),self.optimalValue))
+        self.SnapshotsSaved.append((iteration,deepcopy(self.population),self.callingObjectiveFunction,deepcopy(self.populationClusters),self.optimalValue))

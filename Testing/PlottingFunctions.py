@@ -31,7 +31,7 @@ def PlottingSnapshots(snapshots,intervals: int,SubPlot_kw: dict={'autoscale_on':
             Axs[AxPosition].scatter(X,Y,c=Clusters,**Scatter_kw)
             Axs[AxPosition].set_title(f'Iteration : {Iteration}') 
 
-def PlottingOptimalsFound(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict={}):
+def PlottingOptimalsFound_Iterations(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict={}):
     """
         Function to plot optimal values at each iteration / convergence of solutions
         -- snapshots : List of snapshots
@@ -44,7 +44,7 @@ def PlottingOptimalsFound(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict
     Ax.set_yscale(YScale)
     Ax.plot(X_Iterations,Y_OptimalValues,fmt,**Plot_kw)
 
-def MultiPlottingOptimalsFound(parameterList: list,parameterName: str,optimizer,kwargsOptimizer: dict,ftmList: list[str],subplot_kw: dict={}):
+def MultiPlottingOptimalsFound_Iterations(parameterList: list,parameterName: str,optimizer,kwargsOptimizer: dict,ftmList: list[str],subplot_kw: dict={}):
     """
         Function to optimal values at each iteration with variation of 
         a parameter
@@ -87,4 +87,3 @@ def PlottingObjectiveFunction(objectiveFunction,PlotSurface: bool=True,domainX: 
     Fig.colorbar(plot,shrink=0.5, aspect=5, pad=0.15, label='')
     plt.show()
 
-    

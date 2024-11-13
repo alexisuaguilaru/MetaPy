@@ -47,9 +47,11 @@ class DifferentialEvolution:
             -- iteration : Number of iteration
         """
         populationSize = self.populationSize
+        self.callingObjectiveFunction = 0
         for indexIndividual in range(populationSize):
             mutatedIndividual = self.diffevol_MutationOperation()
             crossoverIndividual = self.diffevol_CrossoverOperation(indexIndividual,mutatedIndividual)
+            self.callingObjectiveFunction += 1
             if (fitnessValue:=self.objectiveFunction(crossoverIndividual)) <= self.fitnessValuesPopulation[indexIndividual]:
                 self.population[indexIndividual] = crossoverIndividual
                 self.fitnessValuesPopulation[indexIndividual] = fitnessValue
@@ -85,7 +87,7 @@ class DifferentialEvolution:
             Method to save a snapshot of the population at iteration-st
             -- iteration : Number of iteration 
         """
-        self.SnapshotsSaved.append((iteration,deepcopy(self.population),self.optimalValue))
+        self.SnapshotsSaved.append((iteration,deepcopy(self.population),self.callingObjectiveFunction,self.optimalValue))
 
     def diffevol_BestOptimalFound(self):
         """

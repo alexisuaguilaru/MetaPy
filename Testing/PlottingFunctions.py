@@ -44,7 +44,17 @@ def PlottingOptimalsFound(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict
     Ax.set_yscale(YScale)
     Ax.plot(X_Iterations,Y_OptimalValues,fmt,**Plot_kw)
 
-def MultiPlottingOptimalsFound(parameterList,parameterName,optimizer,kwargsOptimizer,ftmList,subplot_kw:dict={}):
+def MultiPlottingOptimalsFound(parameterList: list,parameterName: str,optimizer,kwargsOptimizer: dict,ftmList: list[str],subplot_kw: dict={}):
+    """
+        Function to optimal values at each iteration with variation of 
+        a parameter
+        -- parameterList : List of possible values taking for the parameter
+        -- parameterName : Name of the parameter
+        -- optimizer : Metaheuristic being studied
+        -- kwargsOptimizer : Fixed parameters of the optimizer 
+        -- ftmList : List of line styles for the plot
+        -- subplot_kw : Keywords of the plot
+    """
     Fig , Ax = plt.subplots(subplot_kw=subplot_kw,figsize=(10,6))
     for parameterValue,fmt in zip(parameterList,ftmList):
         kwargsOptimizer[parameterName] = parameterValue
@@ -76,3 +86,5 @@ def PlottingObjectiveFunction(objectiveFunction,PlotSurface: bool=True,domainX: 
         Ax.set(xlabel='X', ylabel='Y')
     Fig.colorbar(plot,shrink=0.5, aspect=5, pad=0.15, label='')
     plt.show()
+
+    

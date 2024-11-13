@@ -17,9 +17,9 @@ def PlottingSnapshots(snapshots,intervals: int,SubPlot_kw: dict={'autoscale_on':
         RowsCanvas += 1
     Fig , Axs = plt.subplots(RowsCanvas,3,figsize=(12,4*RowsCanvas),subplot_kw=SubPlot_kw,**Fig_kw)
     Axs = Axs.flat
-    if len(snapshots[0]) == 3:
+    if len(snapshots[0]) == 4:
         for AxPosition , Snapshot in zip(range(3*RowsCanvas),snapshots[::intervals]):
-            Iteration , Population , _ = Snapshot
+            Iteration , Population , *_ = Snapshot
             X , Y = Population[:,0] , Population[:,1]
             Axs[AxPosition].scatter(X,Y,**Scatter_kw)
             Axs[AxPosition].set_title(f'Iteration : {Iteration}') 

@@ -23,13 +23,13 @@ def PlottingSnapshots(snapshots,intervals: int,SubPlot_kw: dict={'autoscale_on':
             X , Y = Population[:,0] , Population[:,1]
             Axs[AxPosition].scatter(X,Y,**Scatter_kw)
             Axs[AxPosition].set_title(f'Iteration : {Iteration}') 
-    
+
     else:
         for AxPosition , Snapshot in zip(range(3*RowsCanvas),snapshots[::intervals]):
-            Iteration , Population , Clusters , _ = Snapshot
+            Iteration , Population , _ , Clusters , *_ = Snapshot
             X , Y = Population[:,0] , Population[:,1]
             Axs[AxPosition].scatter(X,Y,c=Clusters,**Scatter_kw)
-            Axs[AxPosition].set_title(f'Iteration : {Iteration}') 
+            Axs[AxPosition].set_title(f'Iteration : {Iteration}')
 
 def PlottingOptimalsFound_Iterations(snapshots,fmt: str='.:b',YScale='linear',Plot_kw: dict={}):
     """

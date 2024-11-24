@@ -38,8 +38,11 @@ def PlotOptimalsRestuls(optimalsFound:np.ndarray,meanOptimals:float,titleOptimal
         -- binsHisogram : Number of bins used to  
         create the histogram
     """
-    plt.hist(optimalsFound,bins=binsHisogram,alpha=0.8,color='gray')
-    plt.axvline(meanOptimals,c='k',ls=':')
+    binsValues , binsRange , _ = plt.hist(optimalsFound,bins=binsHisogram,alpha=0.8,color='gray')
+    plt.axvline(meanOptimals,c='k',ls=':',label='Mean')
     plt.title(titleOptimals)
     plt.xlabel('Optimal Value')
     plt.ylabel('Number of Values')
+    plt.legend()
+    indexBinMoreValue = np.argmax(binsValues)
+    print(f'Most values are between {binsRange[indexBinMoreValue]} and {binsRange[indexBinMoreValue+1]}')

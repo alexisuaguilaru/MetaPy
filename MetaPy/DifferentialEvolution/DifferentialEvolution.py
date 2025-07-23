@@ -2,7 +2,7 @@ import numpy as np
 
 from typing import Callable
 
-class OptimizerDifferentialEvolution:
+class DifferentialEvolutionOptimizer:
     def __init__(
             self,
             ObjectiveFunction: Callable[[np.ndarray],float],

@@ -1,1 +1,1 @@
-from .DifferentialEvolution import OptimizerDifferentialEvolution
+from .DifferentialEvolution import DifferentialEvolutionOptimizer

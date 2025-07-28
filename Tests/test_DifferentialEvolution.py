@@ -16,15 +16,9 @@ def GetResults():
         )
     
     iters = 100
-    pop_size = 50
-    scaling = 0.5
-    crossover = 0.5
-    BestSolution , Snapshots = DiffEvol(
-        iters,
-        pop_size,
-        scaling,
-        crossover,
-    )
+    best_params = DiffEvol.FineTuningHyperparameters(iters)
+
+    BestSolution , Snapshots = DiffEvol(iters,**best_params)
 
     return BestSolution , Snapshots
 

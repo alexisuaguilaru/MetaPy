@@ -1,10 +1,10 @@
 import numpy as np
 
-from ..Base.FineTuning import MetaheuristicOptimizer
+from ..Base import MetaheuristicOptimizer , MetaheuristicSimulations
 
 from typing import Callable , Any
 
-class DifferentialEvolutionOptimizer(MetaheuristicOptimizer):
+class DifferentialEvolutionOptimizer(MetaheuristicOptimizer,MetaheuristicSimulations):
     def __init__(
             self,
             ObjectiveFunction: Callable[[np.ndarray],float],

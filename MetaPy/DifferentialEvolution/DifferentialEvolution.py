@@ -81,9 +81,9 @@ class DifferentialEvolutionOptimizer(MetaheuristicOptimizer,MetaheuristicSimulat
             self,
             Iterations: int,
             Hyperparameters: dict[str,tuple[str,tuple]] = {
-                    'PopulationSize': ('int',[1,100]),
-                    'ScalingFactor': ('float',[1e-15,1]),
-                    'CrossoverRate': ('float',[1e-15,1]),
+                    'PopulationSize': ('int',(1,100)),
+                    'ScalingFactor': ('float',(1e-15,1)),
+                    'CrossoverRate': ('float',(1e-15,1)),
                 },
             NumTrials: int = 10,
             NumJobs: int = 1,

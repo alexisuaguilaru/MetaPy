@@ -41,7 +41,7 @@ class TabuSearchOptimizer(MetaheuristicOptimizer,MetaheuristicSimulations):
             self,
             Iterations: int,
             TabuTime: int,
-        ):
+        ) -> tuple[np.ndarray,list[float]]:
         """
         Method to search the closest optimal solution from a 
         given solution for the objective function.  Return 

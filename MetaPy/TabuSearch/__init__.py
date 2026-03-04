@@ -1,1 +1,1 @@
-from .TabuSearch import TabuSearch
+from .TabuSearch import TabuSearchOptimizer

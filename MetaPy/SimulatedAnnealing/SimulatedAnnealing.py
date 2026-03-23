@@ -11,7 +11,7 @@ class SimulatedAnnealingOptimizer(MetaheuristicSimulations,MetaheuristicOptimize
             ObjectiveFunction: Callable[[np.ndarray],float],
             InitializeSolution: Callable[[],np.ndarray],
             GenerateNeighborhood: Callable[[np.ndarray],list[np.ndarray]],
-            TemperatureSchedule: Callable[[float,float],list[float]],
+            TemperatureSchedule: Callable[[int,float,float],list[float]],
         ):
         """
         Class for implementation of Simulated Annealing 
@@ -29,7 +29,7 @@ class SimulatedAnnealingOptimizer(MetaheuristicSimulations,MetaheuristicOptimize
         GenerateNeighborhood: Callable[[np.ndarray],list[np.ndarray]]
             Function to generate the neighborhood of a solution
 
-        TemperatureSchedule: Callable[[float,float],list[float]],
+        TemperatureSchedule: Callable[[int,float,float],list[float]],
             Function to get the temperature in each iteration based on initial and final temperature hyperparameters
         """
 
@@ -79,7 +79,7 @@ class SimulatedAnnealingOptimizer(MetaheuristicSimulations,MetaheuristicOptimize
         Snapshots = []
         Snapshots.append(OptimalFitnessValue)
 
-        for current_temperature in self.TemperatureSchedule(InitialTemperature,FinalTemperature):
+        for current_temperature in self.TemperatureSchedule(Iteartions,InitialTemperature,FinalTemperature):
             current_neighborhood = self.GenerateNeighborhood(CurrentSolution)
             random_neighbor = choice(current_neighborhood)
 

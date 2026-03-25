@@ -152,16 +152,16 @@ class EvolutiveProgrammingOptimizer(MetaheuristicOptimizer,MetaheuristicSimulati
         """
 
         Mutations = 1 + self.MutationFactor*self.RandNormalVector()
-        self.MutatedDeviations = np.clip(self.PopulationDeviations.copy()*Mutations[:,None],self.MinStd,None)
+        self.MutatedDeviations = np.clip(self.PopulationDeviations.copy()*Mutations,self.MinStd,None)
         
-        self.MutatedIndividuals = self.PopulationIndividuals.copy() + self.MutatedDeviations*self.RandNormalVector()[:,None]
+        self.MutatedIndividuals = self.PopulationIndividuals.copy() + self.MutatedDeviations*self.RandNormalVector()
 
         self.FitnessValuesMutated = np.apply_along_axis(self.ObjectiveFunction,1,self.MutatedIndividuals)
 
     def SelectionOperation(
             self,
         ) -> None:
-        """
+        r"""
         Method for applying Evolutive Programming 
         Selection Operation to the `PopulationIndividuals` 
         and `MutatedIndividuals` with (\mu+\mu) strategy
@@ -175,6 +175,7 @@ class EvolutiveProgrammingOptimizer(MetaheuristicOptimizer,MetaheuristicSimulati
 
         self.PopulationIndividuals = TotalPopulation[BestIndividuals]
         self.PopulationDeviations = TotalDeviations[BestIndividuals]
+        self.FitnessValuesPopulation = TotalFitnessValues[BestIndividuals]
 
         self.OptimalIndividual , self.OptimalValue = self.BestOptimalIndividual()
 
@@ -186,4 +187,4 @@ class EvolutiveProgrammingOptimizer(MetaheuristicOptimizer,MetaheuristicSimulati
         vector of size `PopulationSize`
         """
 
-        return np.random.normal(0,1,self.PopulationSize)
+        return np.random.normal(0,1,self.PopulationIndividuals.shape)
